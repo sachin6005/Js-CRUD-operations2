@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+	<title>list of items</title>
+    </head>
+    <script 
+    src="https://kit.fontawesome.com/c758d930e9.js" crossorigin="anonymous">
+</script>
+</head>
+    <body>
+        <section>
+            <input id="write-item" type="text" placeholder="write items here..." >
+            <button id="add-item">Add Item List </button><br>
+            <button id="update-item">Update Item List </button>
+            <button id="remove-item">Remove Item List </button>
+            <ul id="to-do">
+               
+            </ul>
+        </section>
+    </body>
+    <script>
+             var list = document.getElementById('to-do');
+             var inputBox = document.getElementById('write-item');
+             var addBtn = document.getElementById('add-item');
+             var btnUpdate = document.getElementById('update-item')
+             var btnRemove = document.getElementById('remove-item')
+
+
+              var cInputValue = ' ';
+             inputBox.addEventListener('input', function(e){
+               cInputValue = e.target.value;
+             });
+
+             inputBox.addEventListener('keyup', function(e) {
+                if(e.keyCode === 13){
+                  addItemList()
+                }
+             })
+
+             function createNewNode(){
+              var newElement= document.createElement('li')
+              var newText = document.createTextNode(cInputValue)
+              newElement.appendChild(newText)
+              newElement.id = 'item' + (list.childElementCount+1);
+
+              return newElement
+             }
+
+              function addItemList(){
+              if(cInputValue !== undefined && cInputValue !== null && cInputValue !== ' '){
+              var newElement= createNewNode()
+              list.appendChild(newElement);
+              inputBox.value = ' '
+              cInputValue = ' '
+               }
+               else{
+               alert('please enter a valid item')
+             }
+           }
+
+           addBtn.addEventListener('click', addItemList)
+
+          btnUpdate.addEventListener('click', function(){
+            var firstElement = list.firstElementChild;
+            var newElement= createNewNode();
+
+            list.replaceChild(newElement, firstElement)
+          })
+
+          btnRemove.addEventListener('click', function(){
+            var firstElement = list.firstElementChild;
+
+            list.removeChild(firstElement);
+          })
+          
+          
+    </script>
